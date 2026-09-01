@@ -1,0 +1,46 @@
+configuration:
+    hostname:
+        name: Rethink hostname
+        description: DNS hostname used by Rethink and its local certificate; do not enter an IP address.
+    mqtt_url:
+        name: MQTT broker URL
+        description: Reachable broker URL such as an internal App hostname/alias or LAN address; localhost is not assumed.
+    mqtt_user:
+        name: MQTT username
+        description: Username for the selected MQTT broker, if required.
+    mqtt_pass:
+        name: MQTT password
+        description: Password for the selected MQTT broker, stored in private App options.
+    discovery_prefix:
+        name: Discovery prefix
+        description: Home Assistant MQTT discovery prefix.
+    rethink_prefix:
+        name: Rethink topic prefix
+        description: Prefix for Rethink MQTT topics.
+    https_bind_port:
+        name: ThinQ HTTPS bind port
+        description: Host listener port; it is advertised to appliances as port 443.
+    mqtts_bind_port:
+        name: ThinQ MQTTS bind port
+        description: Host listener port; it is advertised to appliances as port 8883.
+    mqtt_bind_port:
+        name: Plain MQTT bind port
+        description: Compatibility listener for local unencrypted device MQTT.
+    management_port:
+        name: Management UI port
+        description: Port for the direct management UI on the HAOS host address.
+    thinq1_https_port:
+        name: ThinQ1 HTTPS port
+        description: Legacy ThinQ1 HTTPS listener.
+    thinq1_port:
+        name: ThinQ1 TLS port
+        description: Legacy ThinQ1 device listener.
+    sni_certificates:
+        name: SNI certificates
+        description: Present a CA-signed certificate matching each valid requested TLS hostname.
+    preserve_existing_devices:
+        name: Preserve existing devices
+        description: Keep an existing ThinQ2 Home registration and alias when explicitly pairing a bridge.
+    log:
+        name: Log categories
+        description: Rethink diagnostic categories; secrets are not included in startup output.

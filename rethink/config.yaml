@@ -1,0 +1,50 @@
+name: Rethink Transparent Bridge
+version: '0.1.0'
+slug: rethink_transparent_bridge
+description: Experimental ThinQ cloud emulator and registration-preserving transparent bridge
+arch:
+    - amd64
+    - aarch64
+startup: services
+boot: manual
+init: false
+host_network: true
+stage: experimental
+options:
+    hostname: rethink.lan
+    mqtt_url: null
+    mqtt_user: ''
+    mqtt_pass: ''
+    discovery_prefix: homeassistant
+    rethink_prefix: rethink
+    https_bind_port: 4433
+    mqtts_bind_port: 8884
+    mqtt_bind_port: 1884
+    management_port: 44401
+    thinq1_https_port: 46030
+    thinq1_port: 47878
+    sni_certificates: true
+    preserve_existing_devices: true
+    log:
+        - status
+        - incoming
+        - HTTPS
+        - publish
+        - MGMT
+schema:
+    hostname: str
+    mqtt_url: str
+    mqtt_user: str
+    mqtt_pass: password
+    discovery_prefix: str
+    rethink_prefix: str
+    https_bind_port: port
+    mqtts_bind_port: port
+    mqtt_bind_port: port
+    management_port: port
+    thinq1_https_port: port
+    thinq1_port: port
+    sni_certificates: bool
+    preserve_existing_devices: bool
+    log:
+        - 'list(status|incoming|HTTPS|publish|MGMT|all)'

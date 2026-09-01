@@ -1,0 +1,46 @@
+configuration:
+    hostname:
+        name: Rethink 호스트 이름
+        description: Rethink와 로컬 인증서에 사용할 DNS 이름입니다. IP 주소는 사용할 수 없습니다.
+    mqtt_url:
+        name: MQTT 브로커 URL
+        description: 내부 App 호스트 이름/alias 또는 LAN 주소처럼 컨테이너에서 접근 가능한 URL입니다. localhost를 가정하지 않습니다.
+    mqtt_user:
+        name: MQTT 사용자 이름
+        description: 브로커가 요구하는 경우 사용할 사용자 이름입니다.
+    mqtt_pass:
+        name: MQTT 비밀번호
+        description: private App options에 저장되는 MQTT 비밀번호입니다.
+    discovery_prefix:
+        name: Discovery prefix
+        description: Home Assistant MQTT discovery prefix입니다.
+    rethink_prefix:
+        name: Rethink topic prefix
+        description: Rethink MQTT topic에 사용할 prefix입니다.
+    https_bind_port:
+        name: ThinQ HTTPS bind port
+        description: HAOS host의 listener port입니다. 기기에는 443으로 advertise됩니다.
+    mqtts_bind_port:
+        name: ThinQ MQTTS bind port
+        description: HAOS host의 listener port입니다. 기기에는 8883으로 advertise됩니다.
+    mqtt_bind_port:
+        name: Plain MQTT bind port
+        description: 암호화되지 않은 로컬 device MQTT 호환 listener입니다.
+    management_port:
+        name: Management UI port
+        description: HAOS host 주소에서 management UI를 여는 port입니다.
+    thinq1_https_port:
+        name: ThinQ1 HTTPS port
+        description: 기존 ThinQ1 HTTPS listener입니다.
+    thinq1_port:
+        name: ThinQ1 TLS port
+        description: 기존 ThinQ1 device listener입니다.
+    sni_certificates:
+        name: SNI certificates
+        description: 유효한 TLS hostname마다 로컬 CA가 서명한 일치 인증서를 제공합니다.
+    preserve_existing_devices:
+        name: 기존 device 등록 보존
+        description: Bridge pairing을 명시적으로 실행할 때 기존 ThinQ2 Home 등록과 alias를 유지합니다.
+    log:
+        name: Log categories
+        description: 활성화할 Rethink 진단 category입니다. startup log에는 secret을 출력하지 않습니다.
