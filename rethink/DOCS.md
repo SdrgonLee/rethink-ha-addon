@@ -81,9 +81,10 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.5` pins Rethink revision
-[`4e9e7ae82f6887d1eec723ef4e5d2f3612479f2b`](https://github.com/SdrgonLee/rethink/commit/4e9e7ae82f6887d1eec723ef4e5d2f3612479f2b)
-and prevents LG account profile identifiers from being written to the add-on log.
+Version `0.1.6` pins Rethink revision
+[`eb8986df3ab895393052bb25155a9fb6292f9289`](https://github.com/SdrgonLee/rethink/commit/eb8986df3ab895393052bb25155a9fb6292f9289),
+adds preliminary read-only Home Assistant entities for the LG FX25 (`FX___N`), and prevents LG account
+profile identifiers from being written to the add-on log.
 from [SdrgonLee/rethink](https://github.com/SdrgonLee/rethink). Do not replace the
 revision with a floating branch or tag. The App repository is
 [SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).

@@ -8,7 +8,7 @@ RUN apk add --no-cache git nodejs npm coreutils
 # This revision is the verified Phase 3-5 snapshot and must remain an exact
 # commit, not a branch.
 ARG RETHINK_REPO="https://github.com/SdrgonLee/rethink.git"
-ARG RETHINK_REV="4e9e7ae82f6887d1eec723ef4e5d2f3612479f2b"
+ARG RETHINK_REV="eb8986df3ab895393052bb25155a9fb6292f9289"
 ENV SKIP_GIT_HOOKS=1
 
 RUN git init /src \
@@ -36,7 +36,7 @@ COPY config-generator.mjs /usr/local/lib/rethink/config-generator.mjs
 COPY run.sh /usr/local/bin/rethink-addon-run
 RUN chmod 0755 /usr/local/bin/rethink-addon-run
 
-ARG BUILD_VERSION="0.1.5"
+ARG BUILD_VERSION="0.1.6"
 ARG BUILD_ARCH="local"
 LABEL io.hass.version="${BUILD_VERSION}" \
     io.hass.type="app" \
