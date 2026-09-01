@@ -148,7 +148,7 @@ test('metadata and Dockerfile retain required safety settings and pins', () => {
     for (const token of ['host_network: true', 'boot: manual', 'startup: services', 'stage: experimental']) {
         assert.match(config, new RegExp(token))
     }
-    assert.match(config, /webui: 'http:\/\/\[HOST\]:44401\/'/)
+    assert.match(config, /webui: 'http:\/\/\[HOST\]:\[PORT:44401\]\/'/)
     assert.match(config, /services:\s+- mqtt:need/)
     assert.match(config, /mqtts_bind_port: 8885/)
     assert.match(config, /mqtt_bind_port: 1885/)

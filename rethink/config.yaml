@@ -1,8 +1,8 @@
 name: Rethink Transparent Bridge
-version: '0.1.3'
+version: '0.1.4'
 slug: rethink_transparent_bridge
 description: Experimental ThinQ cloud emulator and registration-preserving transparent bridge
-webui: 'http://[HOST]:44401/'
+webui: 'http://[HOST]:[PORT:44401]/'
 arch:
     - amd64
     - aarch64
