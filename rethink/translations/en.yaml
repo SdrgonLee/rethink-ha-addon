@@ -19,7 +19,7 @@ configuration:
         description: Compatibility listener for local unencrypted device MQTT.
     management_port:
         name: Management UI port
-        description: Port for the direct management UI on the HAOS host address.
+        description: Port for the direct management UI. The Open Web UI button targets the default port 44401.
     thinq1_https_port:
         name: ThinQ1 HTTPS port
         description: Legacy ThinQ1 HTTPS listener.

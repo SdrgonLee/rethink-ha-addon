@@ -20,7 +20,10 @@ OpenWRT DNAT target and permits the several ThinQ listeners, but it reduces netw
 isolation and Home Assistant's security rating. No privileged mode, full access,
 Docker API, host PID/UTS, or additional Linux capability is requested.
 
-After startup, open `http://HAOS_IP:44401`. Ingress is not enabled in this version.
+After startup, use the **Open Web UI** button on the App page or open
+`http://HAOS_IP:44401`. Ingress is not enabled in this version. The button targets
+the default management port 44401; if `management_port` is changed, open the
+corresponding URL manually.
 
 ## Options
 
@@ -78,7 +81,7 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.2` pins Rethink revision
+Version `0.1.3` pins Rethink revision
 [`3046cd6b63f9b19190b6c29d41b543cf1b7d0899`](https://github.com/SdrgonLee/rethink/commit/3046cd6b63f9b19190b6c29d41b543cf1b7d0899)
 from [SdrgonLee/rethink](https://github.com/SdrgonLee/rethink). Do not replace the
 revision with a floating branch or tag. The App repository is
