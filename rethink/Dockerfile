@@ -5,14 +5,13 @@ FROM ${HA_BASE} AS builder
 
 RUN apk add --no-cache git nodejs npm coreutils
 
-# Replace only RETHINK_REPO before publishing. This revision is the locally
-# verified Phase 3-5 snapshot and must remain an exact commit, not a branch.
-ARG RETHINK_REPO="REPLACE_WITH_CORE_REPOSITORY_URL"
+# This revision is the verified Phase 3-5 snapshot and must remain an exact
+# commit, not a branch.
+ARG RETHINK_REPO="https://github.com/SdrgonLee/rethink.git"
 ARG RETHINK_REV="3046cd6b63f9b19190b6c29d41b543cf1b7d0899"
 ENV SKIP_GIT_HOOKS=1
 
-RUN test "${RETHINK_REPO}" != "REPLACE_WITH_CORE_REPOSITORY_URL" \
-    && git init /src \
+RUN git init /src \
     && git -C /src remote add origin "${RETHINK_REPO}" \
     && git -C /src fetch --depth 1 origin "${RETHINK_REV}" \
     && git -C /src checkout --detach FETCH_HEAD \
@@ -37,7 +36,7 @@ COPY config-generator.mjs /usr/local/lib/rethink/config-generator.mjs
 COPY run.sh /usr/local/bin/rethink-addon-run
 RUN chmod 0755 /usr/local/bin/rethink-addon-run
 
-ARG BUILD_VERSION="0.1.0"
+ARG BUILD_VERSION="0.1.1"
 ARG BUILD_ARCH="local"
 LABEL io.hass.version="${BUILD_VERSION}" \
     io.hass.type="app" \

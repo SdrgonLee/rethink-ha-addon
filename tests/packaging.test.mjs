@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { execFileSync } from 'node:child_process'
+import { spawnSync } from 'node:child_process'
 import { mkdtempSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { tmpdir } from 'node:os'
@@ -12,9 +12,6 @@ const generator = join(addon, 'config-generator.mjs')
 function options() {
     return {
         hostname: 'rethink.lan',
-        mqtt_url: 'mqtt://broker.internal:1883',
-        mqtt_user: 'bridge',
-        mqtt_pass: 'a"b$c\\test',
         discovery_prefix: 'homeassistant',
         rethink_prefix: 'rethink',
         https_bind_port: 4433,
@@ -29,16 +26,42 @@ function options() {
     }
 }
 
+function mqttService(overrides = {}) {
+    return {
+        host: 'core-mosquitto',
+        port: '1883',
+        ssl: false,
+        username: 'test-user',
+        password: 'a"b$c\\test',
+        ...overrides,
+    }
+}
+
+function generate(optionsPath, outputPath, service = mqttService()) {
+    return spawnSync(process.execPath, [generator, optionsPath, outputPath], {
+        encoding: 'utf8',
+        input: JSON.stringify(service),
+    })
+}
+
 test('fixture generates exact core configuration and escapes credentials', () => {
     const data = mkdtempSync(join(tmpdir(), 'rethink-addon-'))
     const optionsPath = join(data, 'options.json')
     const outputPath = join(data, 'rethink', 'config.json')
     writeFileSync(optionsPath, JSON.stringify(options()))
 
-    const stdout = execFileSync(process.execPath, [generator, optionsPath, outputPath], { encoding: 'utf8' })
+    assert.equal('mqtt_url' in options(), false)
+    assert.equal('mqtt_user' in options(), false)
+    assert.equal('mqtt_pass' in options(), false)
+
+    const result = generate(optionsPath, outputPath)
     const config = JSON.parse(readFileSync(outputPath, 'utf8'))
 
-    assert.equal(stdout, '')
+    assert.equal(result.status, 0, result.stderr)
+    assert.equal(result.stdout, '')
+    assert.equal(result.stderr, '')
+    assert.equal(config.homeassistant.mqtt_url, 'mqtt://core-mosquitto:1883')
+    assert.equal(config.homeassistant.mqtt_user, 'test-user')
     assert.equal(config.homeassistant.mqtt_pass, 'a"b$c\\test')
     assert.deepEqual(config.https_port, { bind: 4433, advertise: 443, address: '0.0.0.0' })
     assert.deepEqual(config.mqtts_port, { bind: 8884, advertise: 8883, address: '0.0.0.0' })
@@ -48,6 +71,29 @@ test('fixture generates exact core configuration and escapes credentials', () =>
     assert.equal(config.bridge.storage_path, './state')
     assert.equal(config.sni_certificates, true)
     assert.equal(config.bridge.preserve_existing_devices, true)
+})
+
+test('TLS MQTT service produces an mqtts URL', () => {
+    const data = mkdtempSync(join(tmpdir(), 'rethink-addon-mqtts-'))
+    const optionsPath = join(data, 'options.json')
+    const outputPath = join(data, 'rethink', 'config.json')
+    writeFileSync(optionsPath, JSON.stringify(options()))
+
+    const result = generate(optionsPath, outputPath, mqttService({ port: '8883', ssl: true }))
+    assert.equal(result.status, 0, result.stderr)
+    assert.equal(JSON.parse(readFileSync(outputPath, 'utf8')).homeassistant.mqtt_url, 'mqtts://core-mosquitto:8883')
+})
+
+test('missing or invalid MQTT service fails explicitly without leaking credentials', () => {
+    const data = mkdtempSync(join(tmpdir(), 'rethink-addon-no-mqtt-'))
+    const optionsPath = join(data, 'options.json')
+    const outputPath = join(data, 'rethink', 'config.json')
+    writeFileSync(optionsPath, JSON.stringify(options()))
+
+    const result = generate(optionsPath, outputPath, {})
+    assert.notEqual(result.status, 0)
+    assert.match(result.stderr, /MQTT service is required but unavailable or invalid/)
+    assert.doesNotMatch(`${result.stdout}${result.stderr}`, /a"b\$c\\test/)
 })
 
 test('repeated generation preserves CA and bridge state', () => {
@@ -62,8 +108,8 @@ test('repeated generation preserves CA and bridge state', () => {
     writeFileSync(join(rethink, 'ca.cert'), 'CERT-FIXTURE')
     writeFileSync(join(state, 'oauth2.json'), '{"refresh":"fixture"}')
 
-    execFileSync(process.execPath, [generator, optionsPath, outputPath])
-    execFileSync(process.execPath, [generator, optionsPath, outputPath])
+    assert.equal(generate(optionsPath, outputPath).status, 0)
+    assert.equal(generate(optionsPath, outputPath).status, 0)
 
     assert.equal(readFileSync(join(rethink, 'ca.key'), 'utf8'), 'PRIVATE-CA-FIXTURE')
     assert.equal(readFileSync(join(rethink, 'ca.cert'), 'utf8'), 'CERT-FIXTURE')
@@ -75,20 +121,22 @@ test('invalid generation leaves the previous valid config intact', () => {
     const optionsPath = join(data, 'options.json')
     const outputPath = join(data, 'rethink', 'config.json')
     writeFileSync(optionsPath, JSON.stringify(options()))
-    execFileSync(process.execPath, [generator, optionsPath, outputPath])
+    assert.equal(generate(optionsPath, outputPath).status, 0)
     const previous = readFileSync(outputPath, 'utf8')
 
     const invalid = options()
     invalid.https_bind_port = 70000
     writeFileSync(optionsPath, JSON.stringify(invalid))
-    assert.throws(() => execFileSync(process.execPath, [generator, optionsPath, outputPath], { stdio: 'pipe' }))
+    assert.notEqual(generate(optionsPath, outputPath).status, 0)
     assert.equal(readFileSync(outputPath, 'utf8'), previous)
 })
 
 test('startup script avoids state reset and ends with exec', () => {
     const script = readFileSync(join(addon, 'run.sh'), 'utf8')
     assert.doesNotMatch(script, /rm\s+-rf/)
-    assert.doesNotMatch(script, /mqtt_pass|mqtt_user/)
+    assert.doesNotMatch(script, /password|username/i)
+    assert.match(script, /bashio::services\.available mqtt/)
+    assert.match(script, /bashio::services mqtt \| node/)
     assert.match(script, /exec node \/app\/dist\/rethink-cloud\.js/)
 })
 
@@ -100,11 +148,14 @@ test('metadata and Dockerfile retain required safety settings and pins', () => {
     for (const token of ['host_network: true', 'boot: manual', 'startup: services', 'stage: experimental']) {
         assert.match(config, new RegExp(token))
     }
+    assert.match(config, /services:\s+- mqtt:need/)
+    assert.doesNotMatch(config, /mqtt_(url|user|pass)/)
     for (const forbidden of ['full_access:', 'privileged:', 'docker_api:', 'addon_config']) {
         assert.doesNotMatch(config, new RegExp(forbidden))
     }
     assert.match(dockerfile, /ghcr\.io\/home-assistant\/base:3\.24-2026\.08\.0/)
     assert.match(dockerfile, /RETHINK_REV="3046cd6b63f9b19190b6c29d41b543cf1b7d0899"/)
     assert.match(dockerfile, /apk add --no-cache nodejs openssl jq ca-certificates/)
-    assert.match(repository, /REPLACE_WITH_ADDON_REPOSITORY_URL/)
+    assert.match(dockerfile, /RETHINK_REPO="https:\/\/github\.com\/SdrgonLee\/rethink\.git"/)
+    assert.match(repository, /https:\/\/github\.com\/SdrgonLee\/rethink-ha-addon/)
 })

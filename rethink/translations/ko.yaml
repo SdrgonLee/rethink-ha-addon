@@ -2,15 +2,6 @@ configuration:
     hostname:
         name: Rethink 호스트 이름
         description: Rethink와 로컬 인증서에 사용할 DNS 이름입니다. IP 주소는 사용할 수 없습니다.
-    mqtt_url:
-        name: MQTT 브로커 URL
-        description: 내부 App 호스트 이름/alias 또는 LAN 주소처럼 컨테이너에서 접근 가능한 URL입니다. localhost를 가정하지 않습니다.
-    mqtt_user:
-        name: MQTT 사용자 이름
-        description: 브로커가 요구하는 경우 사용할 사용자 이름입니다.
-    mqtt_pass:
-        name: MQTT 비밀번호
-        description: private App options에 저장되는 MQTT 비밀번호입니다.
     discovery_prefix:
         name: Discovery prefix
         description: Home Assistant MQTT discovery prefix입니다.

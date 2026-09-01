@@ -9,9 +9,10 @@ function requiredString(options, name) {
     return value
 }
 
-function string(options, name) {
-    const value = options[name]
-    if (typeof value !== 'string') throw new Error(`${name} must be a string`)
+function optionalString(object, name) {
+    const value = object[name]
+    if (value === undefined || value === null) return ''
+    if (typeof value !== 'string') throw new Error(`MQTT service ${name} must be a string`)
     return value
 }
 
@@ -31,7 +32,33 @@ function portObject(bind, advertise = bind) {
     return { bind, advertise, address: '0.0.0.0' }
 }
 
+async function readMqttService() {
+    let input = ''
+    for await (const chunk of process.stdin) input += chunk
+
+    try {
+        const service = JSON.parse(input)
+        const host = requiredString(service, 'host')
+        const parsedPort = typeof service.port === 'string' ? Number(service.port) : service.port
+        if (!Number.isInteger(parsedPort) || parsedPort < 1 || parsedPort > 65535) {
+            throw new Error('MQTT service port must be a valid TCP port')
+        }
+        if (typeof service.ssl !== 'boolean') throw new Error('MQTT service ssl must be a boolean')
+
+        const urlHost = host.includes(':') && !host.startsWith('[') ? `[${host}]` : host
+        return {
+            url: `${service.ssl ? 'mqtts' : 'mqtt'}://${urlHost}:${parsedPort}`,
+            username: optionalString(service, 'username'),
+            password: optionalString(service, 'password'),
+        }
+    } catch (error) {
+        if (error instanceof Error && error.message.startsWith('MQTT service')) throw error
+        throw new Error('MQTT service is required but unavailable or invalid')
+    }
+}
+
 const options = JSON.parse(await readFile(optionsPath, 'utf8'))
+const mqtt = await readMqttService()
 if (!Array.isArray(options.log) || options.log.some((entry) => typeof entry !== 'string')) {
     throw new Error('log must be an array of strings')
 }
@@ -39,9 +66,9 @@ if (!Array.isArray(options.log) || options.log.some((entry) => typeof entry !== 
 const config = {
     hostname: requiredString(options, 'hostname'),
     homeassistant: {
-        mqtt_url: requiredString(options, 'mqtt_url'),
-        mqtt_user: string(options, 'mqtt_user'),
-        mqtt_pass: string(options, 'mqtt_pass'),
+        mqtt_url: mqtt.url,
+        mqtt_user: mqtt.username,
+        mqtt_pass: mqtt.password,
         discovery_prefix: requiredString(options, 'discovery_prefix'),
         rethink_prefix: requiredString(options, 'rethink_prefix'),
     },

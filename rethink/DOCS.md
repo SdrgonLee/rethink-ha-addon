@@ -8,11 +8,12 @@ device. Bridge activation remains an explicit action in the management UI.
 
 ## Before starting
 
-Set `mqtt_url` to a broker address reachable from this container and provide its
-credentials when required. Do not assume `localhost`: inside a container it means
-that same container. For the official Mosquitto App, use its current Home Assistant
-internal hostname/alias shown by that App or use a deliberately chosen LAN broker
-address. The field is mandatory so an incorrect broker is never guessed.
+This App declares Home Assistant's MQTT service as required. At startup, Bashio
+retrieves the service host, port, TLS flag, username, and password from Supervisor.
+No broker address or credential is entered in the App options, and there is no
+`localhost` fallback. If no MQTT service is installed and running, startup stops
+with an explicit error. Manual or external broker override is outside this first
+version's scope.
 
 The App uses host networking. This makes the HAOS host address a straightforward
 OpenWRT DNAT target and permits the several ThinQ listeners, but it reduces network
@@ -24,7 +25,6 @@ After startup, open `http://HAOS_IP:44401`. Ingress is not enabled in this versi
 ## Options
 
 - `hostname`: DNS hostname placed in the local CA certificate; it must not be an IP address.
-- `mqtt_url`, `mqtt_user`, `mqtt_pass`: Home Assistant MQTT broker connection.
 - `discovery_prefix`, `rethink_prefix`: Home Assistant discovery and Rethink MQTT topic prefixes.
 - `https_bind_port`: host listener for ThinQ HTTPS; default 4433, advertised as 443.
 - `mqtts_bind_port`: host listener for ThinQ MQTTS; default 8884, advertised as 8883.
@@ -76,7 +76,8 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.0` pins Rethink revision
-`3046cd6b63f9b19190b6c29d41b543cf1b7d0899`. Before publishing, replace
-`REPLACE_WITH_CORE_REPOSITORY_URL` in the Dockerfile with a repository containing
-that exact commit. Do not replace the revision with a floating branch or tag.
+Version `0.1.1` pins Rethink revision
+[`3046cd6b63f9b19190b6c29d41b543cf1b7d0899`](https://github.com/SdrgonLee/rethink/commit/3046cd6b63f9b19190b6c29d41b543cf1b7d0899)
+from [SdrgonLee/rethink](https://github.com/SdrgonLee/rethink). Do not replace the
+revision with a floating branch or tag. The App repository is
+[SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).

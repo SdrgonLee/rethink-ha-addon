@@ -2,15 +2,6 @@ configuration:
     hostname:
         name: Rethink hostname
         description: DNS hostname used by Rethink and its local certificate; do not enter an IP address.
-    mqtt_url:
-        name: MQTT broker URL
-        description: Reachable broker URL such as an internal App hostname/alias or LAN address; localhost is not assumed.
-    mqtt_user:
-        name: MQTT username
-        description: Username for the selected MQTT broker, if required.
-    mqtt_pass:
-        name: MQTT password
-        description: Password for the selected MQTT broker, stored in private App options.
     discovery_prefix:
         name: Discovery prefix
         description: Home Assistant MQTT discovery prefix.
