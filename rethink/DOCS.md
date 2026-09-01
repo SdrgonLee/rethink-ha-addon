@@ -81,8 +81,9 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.4` pins Rethink revision
-[`3046cd6b63f9b19190b6c29d41b543cf1b7d0899`](https://github.com/SdrgonLee/rethink/commit/3046cd6b63f9b19190b6c29d41b543cf1b7d0899)
+Version `0.1.5` pins Rethink revision
+[`4e9e7ae82f6887d1eec723ef4e5d2f3612479f2b`](https://github.com/SdrgonLee/rethink/commit/4e9e7ae82f6887d1eec723ef4e5d2f3612479f2b)
+and prevents LG account profile identifiers from being written to the add-on log.
 from [SdrgonLee/rethink](https://github.com/SdrgonLee/rethink). Do not replace the
 revision with a floating branch or tag. The App repository is
 [SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).

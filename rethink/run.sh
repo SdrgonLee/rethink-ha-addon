@@ -28,7 +28,7 @@ management_port="$(jq -r '.management_port.bind' "${CONFIG_FILE}")"
 sni="$(jq -r '.sni_certificates' "${CONFIG_FILE}")"
 preserve="$(jq -r '.bridge.preserve_existing_devices' "${CONFIG_FILE}")"
 
-bashio::log.info 'Starting Rethink revision 3046cd6b63f9b19190b6c29d41b543cf1b7d0899'
+bashio::log.info 'Starting Rethink revision 4e9e7ae82f6887d1eec723ef4e5d2f3612479f2b'
 bashio::log.info "Config: ${CONFIG_FILE}"
 bashio::log.info "Host: ${hostname}; HTTPS: ${https_port}; MQTTS: ${mqtts_port}; management: ${management_port}"
 bashio::log.info "SNI certificates: ${sni}; preserve existing devices: ${preserve}"
