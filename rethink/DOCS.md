@@ -27,16 +27,18 @@ After startup, open `http://HAOS_IP:44401`. Ingress is not enabled in this versi
 - `hostname`: DNS hostname placed in the local CA certificate; it must not be an IP address.
 - `discovery_prefix`, `rethink_prefix`: Home Assistant discovery and Rethink MQTT topic prefixes.
 - `https_bind_port`: host listener for ThinQ HTTPS; default 4433, advertised as 443.
-- `mqtts_bind_port`: host listener for ThinQ MQTTS; default 8884, advertised as 8883.
-- `mqtt_bind_port`: local plaintext device MQTT listener; retained for core compatibility, default 1884.
+- `mqtts_bind_port`: host listener for ThinQ MQTTS; default 8885, advertised as 8883.
+- `mqtt_bind_port`: local plaintext device MQTT listener; retained for core compatibility, default 1885.
 - `management_port`: management UI, default 44401.
 - `thinq1_https_port`, `thinq1_port`: legacy ThinQ1 listeners, defaults 46030 and 47878.
 - `sni_certificates`: issue in-memory CA-signed leaf certificates for requested valid SNI names.
 - `preserve_existing_devices`: keep an existing ThinQ2 Home registration and alias during bridge pairing.
 - `log`: enabled Rethink log categories. Credentials and private material are never included in startup diagnostics.
 
-Suggested OpenWRT redirection is `FX25:443 -> HAOS:4433` and
-`FX25:8883 -> HAOS:8884`. Configure routing only during the later device test.
+The official Home Assistant Mosquitto App reserves host ports 1884 and 8884, so
+Rethink deliberately avoids both. Suggested OpenWRT redirection is
+`FX25:443 -> HAOS:4433` and `FX25:8883 -> HAOS:8885`. Configure routing only
+during the later device test.
 
 ## Persistent private data and backups
 
@@ -76,7 +78,7 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.1` pins Rethink revision
+Version `0.1.2` pins Rethink revision
 [`3046cd6b63f9b19190b6c29d41b543cf1b7d0899`](https://github.com/SdrgonLee/rethink/commit/3046cd6b63f9b19190b6c29d41b543cf1b7d0899)
 from [SdrgonLee/rethink](https://github.com/SdrgonLee/rethink). Do not replace the
 revision with a floating branch or tag. The App repository is

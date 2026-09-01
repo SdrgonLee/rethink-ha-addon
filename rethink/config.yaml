@@ -1,5 +1,5 @@
 name: Rethink Transparent Bridge
-version: '0.1.1'
+version: '0.1.2'
 slug: rethink_transparent_bridge
 description: Experimental ThinQ cloud emulator and registration-preserving transparent bridge
 arch:
@@ -17,8 +17,8 @@ options:
     discovery_prefix: homeassistant
     rethink_prefix: rethink
     https_bind_port: 4433
-    mqtts_bind_port: 8884
-    mqtt_bind_port: 1884
+    mqtts_bind_port: 8885
+    mqtt_bind_port: 1885
     management_port: 44401
     thinq1_https_port: 46030
     thinq1_port: 47878

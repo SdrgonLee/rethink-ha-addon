@@ -15,8 +15,8 @@ function options() {
         discovery_prefix: 'homeassistant',
         rethink_prefix: 'rethink',
         https_bind_port: 4433,
-        mqtts_bind_port: 8884,
-        mqtt_bind_port: 1884,
+        mqtts_bind_port: 8885,
+        mqtt_bind_port: 1885,
         management_port: 44401,
         thinq1_https_port: 46030,
         thinq1_port: 47878,
@@ -64,8 +64,8 @@ test('fixture generates exact core configuration and escapes credentials', () =>
     assert.equal(config.homeassistant.mqtt_user, 'test-user')
     assert.equal(config.homeassistant.mqtt_pass, 'a"b$c\\test')
     assert.deepEqual(config.https_port, { bind: 4433, advertise: 443, address: '0.0.0.0' })
-    assert.deepEqual(config.mqtts_port, { bind: 8884, advertise: 8883, address: '0.0.0.0' })
-    assert.deepEqual(config.mqtt_port, { bind: 1884, advertise: 1884, address: '0.0.0.0' })
+    assert.deepEqual(config.mqtts_port, { bind: 8885, advertise: 8883, address: '0.0.0.0' })
+    assert.deepEqual(config.mqtt_port, { bind: 1885, advertise: 1885, address: '0.0.0.0' })
     assert.equal(config.ca_key_file, 'ca.key')
     assert.equal(config.ca_cert_file, 'ca.cert')
     assert.equal(config.bridge.storage_path, './state')
@@ -149,6 +149,8 @@ test('metadata and Dockerfile retain required safety settings and pins', () => {
         assert.match(config, new RegExp(token))
     }
     assert.match(config, /services:\s+- mqtt:need/)
+    assert.match(config, /mqtts_bind_port: 8885/)
+    assert.match(config, /mqtt_bind_port: 1885/)
     assert.doesNotMatch(config, /mqtt_(url|user|pass)/)
     for (const forbidden of ['full_access:', 'privileged:', 'docker_api:', 'addon_config']) {
         assert.doesNotMatch(config, new RegExp(forbidden))
