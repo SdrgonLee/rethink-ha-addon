@@ -148,7 +148,10 @@ test('metadata and Dockerfile retain required safety settings and pins', () => {
     for (const token of ['host_network: true', 'boot: manual', 'startup: services', 'stage: experimental']) {
         assert.match(config, new RegExp(token))
     }
-    assert.match(config, /webui: 'http:\/\/\[HOST\]:\[PORT:44401\]\/'/)
+    assert.match(config, /ingress: true/)
+    assert.match(config, /ingress_port: 44401/)
+    assert.match(config, /panel_icon: mdi:washing-machine/)
+    assert.doesNotMatch(config, /^webui:/m)
     assert.match(config, /services:\s+- mqtt:need/)
     assert.match(config, /mqtts_bind_port: 8885/)
     assert.match(config, /mqtt_bind_port: 1885/)
@@ -157,7 +160,7 @@ test('metadata and Dockerfile retain required safety settings and pins', () => {
         assert.doesNotMatch(config, new RegExp(forbidden))
     }
     assert.match(dockerfile, /ghcr\.io\/home-assistant\/base:3\.24-2026\.08\.0/)
-    assert.match(dockerfile, /RETHINK_REV="264313206e669df5e379acf152ceebc2a8aba2de"/)
+    assert.match(dockerfile, /RETHINK_REV="f7670d75e75d4b053854cae93e8fe033ad82da09"/)
     assert.match(dockerfile, /apk add --no-cache nodejs openssl jq ca-certificates/)
     assert.match(dockerfile, /RETHINK_REPO="https:\/\/github\.com\/SdrgonLee\/rethink\.git"/)
     assert.match(repository, /https:\/\/github\.com\/SdrgonLee\/rethink-ha-addon/)

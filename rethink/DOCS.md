@@ -20,10 +20,11 @@ OpenWRT DNAT target and permits the several ThinQ listeners, but it reduces netw
 isolation and Home Assistant's security rating. No privileged mode, full access,
 Docker API, host PID/UTS, or additional Linux capability is requested.
 
-After startup, use the **Open Web UI** button on the App page or open
-`http://HAOS_IP:44401`. Ingress is not enabled in this version. The button targets
-the default management port 44401; if `management_port` is changed, open the
-corresponding URL manually.
+After startup, use the **Open Web UI** button on the App page. Home Assistant
+Ingress keeps the management UI inside the Home Assistant frontend and carries
+HTTP and WebSocket traffic through the authenticated Home Assistant connection;
+no external management-port forwarding is required. The configured
+`management_port` must remain equal to the App's fixed Ingress port, 44401.
 
 ## Options
 
@@ -81,10 +82,10 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.7` pins Rethink revision
-[`dc84e97c8cc105a49430084b835088b53103fda6`](https://github.com/SdrgonLee/rethink/commit/dc84e97c8cc105a49430084b835088b53103fda6),
+Version `0.1.9` pins Rethink revision
+[`f7670d75e75d4b053854cae93e8fe033ad82da09`](https://github.com/SdrgonLee/rethink/commit/f7670d75e75d4b053854cae93e8fe033ad82da09),
 adds preliminary read-only Home Assistant entities for the LG FX25 (`FX___N`), including compact state
-snapshot decoding, and prevents LG account profile identifiers from being written to the add-on log.
+snapshot decoding, and provides the management UI through Home Assistant Ingress.
 from [SdrgonLee/rethink](https://github.com/SdrgonLee/rethink). Do not replace the
 revision with a floating branch or tag. The App repository is
 [SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).

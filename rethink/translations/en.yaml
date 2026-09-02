@@ -19,7 +19,7 @@ configuration:
         description: Compatibility listener for local unencrypted device MQTT.
     management_port:
         name: Management UI port
-        description: Port for the direct management UI. The Open Web UI button targets the default port 44401.
+        description: Management listener used by Home Assistant Ingress. Keep this at 44401.
     thinq1_https_port:
         name: ThinQ1 HTTPS port
         description: Legacy ThinQ1 HTTPS listener.
