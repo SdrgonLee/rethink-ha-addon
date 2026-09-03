@@ -82,13 +82,15 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.13` pins Rethink revision
-[`f3506a23c79dac7e9b39f55f79d346f6e5b86531`](https://github.com/SdrgonLee/rethink/commit/f3506a23c79dac7e9b39f55f79d346f6e5b86531).
-It groups the LG FX25 (`FX___N`) course, soil, rinse, spin, temperature, TurboWash, pre-wash, steam,
-and crease-care entities under Home Assistant's Configuration section while keeping machine state and
-timing entities in their primary sections. All cycle-setting entities remain read-only. It retains the
+Version `0.1.14` pins Rethink revision
+[`8dfc95e92fa7578d454ad1a5bb72f23769953dc5`](https://github.com/SdrgonLee/rethink/commit/8dfc95e92fa7578d454ad1a5bb72f23769953dc5).
+It separates the LG FX25 (`FX___N`) course, soil, rinse, spin, temperature, TurboWash, pre-wash, steam,
+and crease-care read-only entities into Home Assistant's Diagnostic section while keeping machine state
+and timing entities in their primary Sensor section. MQTT sensor and binary-sensor discovery only permits
+the Diagnostic category; version 0.1.13's unsupported Configuration category did not provide the intended
+grouping. Entity IDs, MQTT topics, state decoding, and control behavior are unchanged. It retains the
 verified power-control switch, bidirectional transparent ThinQ2 application capture, full-cycle status
 entities, and the Home Assistant Ingress management UI.
-from [SdrgonLee/rethink](https://github.com/SdrgonLee/rethink). Do not replace the
+The pinned source is [SdrgonLee/rethink](https://github.com/SdrgonLee/rethink). Do not replace the
 revision with a floating branch or tag. The App repository is
 [SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).
