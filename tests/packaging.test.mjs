@@ -137,6 +137,8 @@ test('startup script avoids state reset and ends with exec', () => {
     assert.doesNotMatch(script, /password|username/i)
     assert.match(script, /bashio::services\.available mqtt/)
     assert.match(script, /bashio::services mqtt \| node/)
+    assert.match(script, /Starting Rethink revision \$\{RETHINK_REV:-unknown\}/)
+    assert.doesNotMatch(script, /Starting Rethink revision [0-9a-f]{40}/)
     assert.match(script, /exec node \/app\/dist\/rethink-cloud\.js/)
 })
 
@@ -161,6 +163,7 @@ test('metadata and Dockerfile retain required safety settings and pins', () => {
     }
     assert.match(dockerfile, /ghcr\.io\/home-assistant\/base:3\.24-2026\.08\.0/)
     assert.match(dockerfile, /RETHINK_REV="8dfc95e92fa7578d454ad1a5bb72f23769953dc5"/)
+    assert.match(dockerfile, /RETHINK_REV="\$\{RETHINK_REV\}"/)
     assert.match(dockerfile, /apk add --no-cache nodejs openssl jq ca-certificates/)
     assert.match(dockerfile, /RETHINK_REPO="https:\/\/github\.com\/SdrgonLee\/rethink\.git"/)
     assert.match(repository, /https:\/\/github\.com\/SdrgonLee\/rethink-ha-addon/)
