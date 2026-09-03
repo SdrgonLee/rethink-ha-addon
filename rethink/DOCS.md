@@ -82,13 +82,13 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.16` pins Rethink revision
-[`ccfac67ad79d5e9d3791eb0c23e11ecb738c1b04`](https://github.com/SdrgonLee/rethink/commit/ccfac67ad79d5e9d3791eb0c23e11ecb738c1b04).
-It restores all LG FX25 (`FX___N`) read-only cycle settings to Home Assistant's Sensor section. For KR
-devices, entity display names use LG's Korean terminology; the nine cycle-setting names share a
-`세탁 설정 ·` prefix so Home Assistant sorts them together. Other regions retain English names and use
-the equivalent `Wash setting ·` prefix. Entity IDs, MQTT topics, state values, decoding, and control
-behavior are unchanged. It retains the verified power-control switch, bidirectional transparent ThinQ2
+Version `0.1.17` pins Rethink revision
+[`8afc4604bdad00b87169a2502571515e3f5ad230`](https://github.com/SdrgonLee/rethink/commit/8afc4604bdad00b87169a2502571515e3f5ad230).
+It keeps all LG FX25 (`FX___N`) read-only entities in their existing Home Assistant sections. For KR
+devices, current operating-state names share a `상태 ·` prefix and selected course-setting names share
+a `코스 ·` prefix, so Home Assistant sorts each group together. Other regions use the equivalent
+`Status ·` and `Course ·` prefixes. Entity IDs, MQTT topics, state values, decoding, entity categories,
+and control behavior are unchanged. It retains the verified power-control switch, bidirectional ThinQ2
 application capture, full-cycle status entities, and the Home Assistant Ingress management UI. The
 startup log reads the exact core revision from an immutable file produced by the same Docker build pin.
 The pinned source is [SdrgonLee/rethink](https://github.com/SdrgonLee/rethink). Do not replace the
