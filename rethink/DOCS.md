@@ -82,10 +82,10 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.9` pins Rethink revision
-[`f7670d75e75d4b053854cae93e8fe033ad82da09`](https://github.com/SdrgonLee/rethink/commit/f7670d75e75d4b053854cae93e8fe033ad82da09),
-adds preliminary read-only Home Assistant entities for the LG FX25 (`FX___N`), including compact state
-snapshot decoding, and provides the management UI through Home Assistant Ingress.
+Version `0.1.10` pins Rethink revision
+[`3bb7edd08aad3025a62305f202a2f41a289358e7`](https://github.com/SdrgonLee/rethink/commit/3bb7edd08aad3025a62305f202a2f41a289358e7),
+adds read-only Home Assistant entities validated against a complete LG FX25 (`FX___N`) wash cycle,
+including laundry-care compact snapshots, and provides the management UI through Home Assistant Ingress.
 from [SdrgonLee/rethink](https://github.com/SdrgonLee/rethink). Do not replace the
 revision with a floating branch or tag. The App repository is
 [SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).
