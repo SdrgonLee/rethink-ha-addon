@@ -82,12 +82,13 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.12` pins Rethink revision
-[`10153620b9c216196cd3891d3af06f00f6b04be1`](https://github.com/SdrgonLee/rethink/commit/10153620b9c216196cd3891d3af06f00f6b04be1),
-adds an isolated Home Assistant power-control switch for LG FX25 (`FX___N`) using ON and OFF frames
-each reproduced through the official ThinQ app. All course, option, start, and pause entities remain
-read-only. It retains bidirectional transparent ThinQ2 application capture, the full-cycle-validated
-status entities, and the Home Assistant Ingress management UI.
+Version `0.1.13` pins Rethink revision
+[`f3506a23c79dac7e9b39f55f79d346f6e5b86531`](https://github.com/SdrgonLee/rethink/commit/f3506a23c79dac7e9b39f55f79d346f6e5b86531).
+It groups the LG FX25 (`FX___N`) course, soil, rinse, spin, temperature, TurboWash, pre-wash, steam,
+and crease-care entities under Home Assistant's Configuration section while keeping machine state and
+timing entities in their primary sections. All cycle-setting entities remain read-only. It retains the
+verified power-control switch, bidirectional transparent ThinQ2 application capture, full-cycle status
+entities, and the Home Assistant Ingress management UI.
 from [SdrgonLee/rethink](https://github.com/SdrgonLee/rethink). Do not replace the
 revision with a floating branch or tag. The App repository is
 [SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).
