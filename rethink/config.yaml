@@ -1,5 +1,5 @@
 name: Rethink Transparent Bridge
-version: '0.1.11'
+version: '0.1.12'
 slug: rethink_transparent_bridge
 description: Experimental ThinQ cloud emulator and registration-preserving transparent bridge
 ingress: true
