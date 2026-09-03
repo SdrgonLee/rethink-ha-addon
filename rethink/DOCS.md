@@ -82,8 +82,8 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.17` pins Rethink revision
-[`8afc4604bdad00b87169a2502571515e3f5ad230`](https://github.com/SdrgonLee/rethink/commit/8afc4604bdad00b87169a2502571515e3f5ad230).
+Version `0.1.18` pins Rethink revision
+[`7f61b4c48c2ec1275b78d190e867fc450d6bdcd5`](https://github.com/SdrgonLee/rethink/commit/7f61b4c48c2ec1275b78d190e867fc450d6bdcd5).
 It keeps all LG FX25 (`FX___N`) read-only entities in their existing Home Assistant sections. For KR
 devices, current operating-state names share a `상태 ·` prefix and selected course-setting names share
 a `코스 ·` prefix, so Home Assistant sorts each group together. Other regions use the equivalent
