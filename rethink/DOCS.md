@@ -82,10 +82,12 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.10` pins Rethink revision
-[`3bb7edd08aad3025a62305f202a2f41a289358e7`](https://github.com/SdrgonLee/rethink/commit/3bb7edd08aad3025a62305f202a2f41a289358e7),
-adds read-only Home Assistant entities validated against a complete LG FX25 (`FX___N`) wash cycle,
-including laundry-care compact snapshots, and provides the management UI through Home Assistant Ingress.
+Version `0.1.11` pins Rethink revision
+[`99e78b811d66b606b49e83ed2a2010d662526b4c`](https://github.com/SdrgonLee/rethink/commit/99e78b811d66b606b49e83ed2a2010d662526b4c),
+captures transparent ThinQ2 application messages in both directions through the management WebSocket,
+JSONL recorder, and MCP live buffer. Exact payload bytes and parsed JSON are retained while the
+account-specific upstream MQTT topic is excluded. It also retains the read-only Home Assistant entities
+validated against a complete LG FX25 (`FX___N`) wash cycle and Home Assistant Ingress management UI.
 from [SdrgonLee/rethink](https://github.com/SdrgonLee/rethink). Do not replace the
 revision with a floating branch or tag. The App repository is
 [SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).
