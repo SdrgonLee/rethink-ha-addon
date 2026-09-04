@@ -1,5 +1,6 @@
 name: Rethink Transparent Bridge
-version: '0.1.19'
+version: '0.1.20'
+image: ghcr.io/sdrgonlee/rethink-ha-addon
 slug: rethink_transparent_bridge
 description: Experimental ThinQ cloud emulator and registration-preserving transparent bridge
 ingress: true

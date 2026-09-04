@@ -82,7 +82,7 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.19` pins Rethink revision
+Version `0.1.20` pins Rethink revision
 [`496bbbebe963101542a3073ba6dbb2a5ac288f66`](https://github.com/SdrgonLee/rethink/commit/496bbbebe963101542a3073ba6dbb2a5ac288f66).
 For LG FX25 (`FX___N`) devices, it replaces the duplicate course, soil, rinse, spin, temperature, and
 TurboWash read-only entities with the existing control selects. Each select now sends its command
@@ -100,3 +100,7 @@ same Docker build pin.
 The pinned source is [SdrgonLee/rethink](https://github.com/SdrgonLee/rethink). Do not replace the
 revision with a floating branch or tag. The App repository is
 [SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).
+
+The App is distributed as the versioned multi-architecture image
+`ghcr.io/sdrgonlee/rethink-ha-addon:0.1.20`. Home Assistant selects its native `amd64` or `arm64`
+manifest automatically. It does not use a floating `latest` tag.
