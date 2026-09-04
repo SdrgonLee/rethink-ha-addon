@@ -82,15 +82,21 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.18` pins Rethink revision
-[`7f61b4c48c2ec1275b78d190e867fc450d6bdcd5`](https://github.com/SdrgonLee/rethink/commit/7f61b4c48c2ec1275b78d190e867fc450d6bdcd5).
-It keeps all LG FX25 (`FX___N`) read-only entities in their existing Home Assistant sections. For KR
-devices, current operating-state names share a `상태 ·` prefix and selected course-setting names share
-a `코스 ·` prefix, so Home Assistant sorts each group together. Other regions use the equivalent
-`Status ·` and `Course ·` prefixes. Entity IDs, MQTT topics, state values, decoding, entity categories,
-and control behavior are unchanged. It retains the verified power-control switch, bidirectional ThinQ2
-application capture, full-cycle status entities, and the Home Assistant Ingress management UI. The
-startup log reads the exact core revision from an immutable file produced by the same Docker build pin.
+Version `0.1.19` pins Rethink revision
+[`496bbbebe963101542a3073ba6dbb2a5ac288f66`](https://github.com/SdrgonLee/rethink/commit/496bbbebe963101542a3073ba6dbb2a5ac288f66).
+For LG FX25 (`FX___N`) devices, it replaces the duplicate course, soil, rinse, spin, temperature, and
+TurboWash read-only entities with the existing control selects. Each select now sends its command
+immediately but keeps the last appliance-reported state until the FX25 returns an authoritative state
+block; it is therefore explicitly non-optimistic. The existing select unique IDs and MQTT topics remain
+unchanged. Automations that used the removed sensor or binary-sensor entities must be moved to their
+corresponding select entities. The obsolete `Send to washer` button is also removed.
+
+For KR devices, current operating-state names share a `상태 ·` prefix and selected course-setting names
+share a `코스 ·` prefix, so Home Assistant sorts each group together. Other regions use the equivalent
+`Status ·` and `Course ·` prefixes. The release retains the verified power-control switch,
+bidirectional ThinQ2 application capture, full-cycle status entities, and the Home Assistant Ingress
+management UI. The startup log reads the exact core revision from an immutable file produced by the
+same Docker build pin.
 The pinned source is [SdrgonLee/rethink](https://github.com/SdrgonLee/rethink). Do not replace the
 revision with a floating branch or tag. The App repository is
 [SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).
