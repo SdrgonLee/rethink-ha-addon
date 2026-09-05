@@ -82,8 +82,8 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.24` pins Rethink revision
-[`e0a7cded8dd8cb7416c7ec88f3f0829a50dc816a`](https://github.com/SdrgonLee/rethink/commit/e0a7cded8dd8cb7416c7ec88f3f0829a50dc816a).
+Version `0.1.25` pins Rethink revision
+[`200efcc90960be49e0f530387a2d9d2b7b59a8f9`](https://github.com/SdrgonLee/rethink/commit/200efcc90960be49e0f530387a2d9d2b7b59a8f9).
 For LG FX25 (`FX___N`) devices, it replaces the duplicate course, soil, rinse, spin, temperature, and
 TurboWash read-only entities with the existing control selects. Each select now sends its command
 immediately but keeps the last appliance-reported state until the FX25 returns an authoritative state
@@ -91,7 +91,7 @@ block; it is therefore explicitly non-optimistic. The existing select unique IDs
 unchanged. Automations that used the removed sensor or binary-sensor entities must be moved to their
 corresponding select entities. The obsolete `Send to washer` button is also removed.
 
-Version `0.1.24` also enables the captured `애벌세탁` value through the existing soil-level select and
+Version `0.1.25` also enables the captured `애벌세탁` value through the existing soil-level select and
 adds a non-optimistic reserved-completion select covering Off and 3–19 hours in 30-minute steps. The
 duplicate reservation duration sensor, redundant pre-wash binary sensor, and unsupported Steam sensor
 are removed; the reserved-completion select remains the single reservation entity. A `Start laundry
@@ -106,6 +106,9 @@ their discovery option lists narrow to the appliance-reported value so the curre
 visible without presenting unusable alternatives; the full option lists return on Initial. The bridge
 also rejects any out-of-state MQTT write independently of the UI. Entity-name `Status ·` and `Course ·`
 prefixes are removed. Door lock moves to the normal sensor section and Use count moves to Diagnostics.
+This version explicitly refreshes both MQTT discovery components so Home Assistant migrates the
+stored entity-registry category for users upgrading from an earlier release; their unique IDs and
+entity IDs remain unchanged.
 The release retains the verified power-control switch, bidirectional ThinQ2 application capture,
 full-cycle status entities, and the Home Assistant Ingress management UI. The startup log reads the
 exact core revision from an immutable file produced by the same Docker build pin.
@@ -114,5 +117,5 @@ revision with a floating branch or tag. The App repository is
 [SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).
 
 The App is distributed as the versioned multi-architecture image
-`ghcr.io/sdrgonlee/rethink-ha-addon:0.1.24`. Home Assistant selects its native `amd64` or `arm64`
+`ghcr.io/sdrgonlee/rethink-ha-addon:0.1.25`. Home Assistant selects its native `amd64` or `arm64`
 manifest automatically. It does not use a floating `latest` tag.
