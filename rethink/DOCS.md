@@ -83,6 +83,14 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
+Version `0.1.27` pins Rethink revision
+[`4c074bd151acb84f7ad00fc4f698d2f7d2f5026b`](https://github.com/SdrgonLee/rethink/commit/4c074bd151acb84f7ad00fc4f698d2f7d2f5026b).
+For LG FX25 (`FX___N`) devices, it adds a `Start washer` (`세탁 시작`) button that reproduces the
+official ThinQ remote-start command captured during a real cycle. The bridge accepts the command only
+while the appliance authoritatively reports both Initial state and remote control enabled; Home
+Assistant marks the button unavailable in every other state. Once the appliance starts its cycle, the
+reported state disables the button and repeated start requests are rejected.
+
 Version `0.1.26` pins Rethink revision
 [`139a84fa4461e27f848804327b1512c2458aa581`](https://github.com/SdrgonLee/rethink/commit/139a84fa4461e27f848804327b1512c2458aa581).
 For LG FX25 (`FX___N`) devices, it replaces the duplicate course, soil, rinse, spin, temperature, and
@@ -125,5 +133,5 @@ revision with a floating branch or tag. The App repository is
 [SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).
 
 The App is distributed as the versioned multi-architecture image
-`ghcr.io/sdrgonlee/rethink-ha-addon:0.1.26`. Home Assistant selects its native `amd64` or `arm64`
+`ghcr.io/sdrgonlee/rethink-ha-addon:0.1.27`. Home Assistant selects its native `amd64` or `arm64`
 manifest automatically. It does not use a floating `latest` tag.
