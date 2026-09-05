@@ -82,8 +82,8 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.21` pins Rethink revision
-[`86aa5530103b5178ed91beaf3168a6e8e81e3583`](https://github.com/SdrgonLee/rethink/commit/86aa5530103b5178ed91beaf3168a6e8e81e3583).
+Version `0.1.22` pins Rethink revision
+[`12916e1bd063633bab8b72394a64414822f01e7a`](https://github.com/SdrgonLee/rethink/commit/12916e1bd063633bab8b72394a64414822f01e7a).
 For LG FX25 (`FX___N`) devices, it replaces the duplicate course, soil, rinse, spin, temperature, and
 TurboWash read-only entities with the existing control selects. Each select now sends its command
 immediately but keeps the last appliance-reported state until the FX25 returns an authoritative state
@@ -91,11 +91,13 @@ block; it is therefore explicitly non-optimistic. The existing select unique IDs
 unchanged. Automations that used the removed sensor or binary-sensor entities must be moved to their
 corresponding select entities. The obsolete `Send to washer` button is also removed.
 
-Version `0.1.21` also enables the captured `애벌세탁` value through the existing soil-level select and
+Version `0.1.22` also enables the captured `애벌세탁` value through the existing soil-level select and
 adds a non-optimistic reserved-completion select covering Off and 3–19 hours in 30-minute steps. The
-existing reservation duration sensor remains available as the live minute countdown. The redundant
-pre-wash binary sensor and the unsupported Steam sensor are removed for this non-steam FX25 model;
-Crease care remains read-only.
+duplicate reservation duration sensor, redundant pre-wash binary sensor, and unsupported Steam sensor
+are removed; the reserved-completion select remains the single reservation entity. A `Start laundry
+care` button reproduces the official ThinQ command captured at a real completed cycle. The bridge only
+forwards it while the appliance itself reports both Complete and remote control enabled; it is ignored
+in every other state. Crease care remains read-only.
 
 For KR devices, current operating-state names share a `상태 ·` prefix and selected course-setting names
 share a `코스 ·` prefix, so Home Assistant sorts each group together. Other regions use the equivalent
@@ -108,5 +110,5 @@ revision with a floating branch or tag. The App repository is
 [SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).
 
 The App is distributed as the versioned multi-architecture image
-`ghcr.io/sdrgonlee/rethink-ha-addon:0.1.21`. Home Assistant selects its native `amd64` or `arm64`
+`ghcr.io/sdrgonlee/rethink-ha-addon:0.1.22`. Home Assistant selects its native `amd64` or `arm64`
 manifest automatically. It does not use a floating `latest` tag.
