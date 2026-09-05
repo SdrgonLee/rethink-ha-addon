@@ -56,6 +56,7 @@ it in App backups. Supervisor owns `/data/options.json`; this App writes only un
 ├── ca.cert
 └── state/
     ├── oauth2.json
+    ├── fx25-energy-*.json
     └── device_*.json (and other per-device bridge state)
 ```
 
@@ -82,8 +83,8 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
-Version `0.1.25` pins Rethink revision
-[`200efcc90960be49e0f530387a2d9d2b7b59a8f9`](https://github.com/SdrgonLee/rethink/commit/200efcc90960be49e0f530387a2d9d2b7b59a8f9).
+Version `0.1.26` pins Rethink revision
+[`139a84fa4461e27f848804327b1512c2458aa581`](https://github.com/SdrgonLee/rethink/commit/139a84fa4461e27f848804327b1512c2458aa581).
 For LG FX25 (`FX___N`) devices, it replaces the duplicate course, soil, rinse, spin, temperature, and
 TurboWash read-only entities with the existing control selects. Each select now sends its command
 immediately but keeps the last appliance-reported state until the FX25 returns an authoritative state
@@ -109,6 +110,13 @@ prefixes are removed. Door lock moves to the normal sensor section and Use count
 This version explicitly refreshes both MQTT discovery components so Home Assistant migrates the
 stored entity-registry category for users upgrading from an earlier release; their unique IDs and
 entity IDs remain unchanged.
+It also decodes the FX25's captured 15-minute energy report into three diagnostic entities: recent
+15-minute average power (W), current-cycle energy (Wh), and this-month energy (kWh). Current-cycle
+energy resets only when the appliance reports a new active wash cycle and remains available after
+completion. Monthly energy is accumulated from the appliance's authoritative cycle counter, saved
+under `/data/rethink/state`, restored after App updates/restarts, and reset on the first day of each
+month. Missed intermediate interval packets are recovered from the next reported cycle total, while
+duplicate reports are ignored.
 The release retains the verified power-control switch, bidirectional ThinQ2 application capture,
 full-cycle status entities, and the Home Assistant Ingress management UI. The startup log reads the
 exact core revision from an immutable file produced by the same Docker build pin.
@@ -117,5 +125,5 @@ revision with a floating branch or tag. The App repository is
 [SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).
 
 The App is distributed as the versioned multi-architecture image
-`ghcr.io/sdrgonlee/rethink-ha-addon:0.1.25`. Home Assistant selects its native `amd64` or `arm64`
+`ghcr.io/sdrgonlee/rethink-ha-addon:0.1.26`. Home Assistant selects its native `amd64` or `arm64`
 manifest automatically. It does not use a floating `latest` tag.
