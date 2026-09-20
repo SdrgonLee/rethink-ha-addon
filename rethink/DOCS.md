@@ -83,6 +83,18 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
+Version `0.1.29` pins Rethink revision
+[`97e3e7f548b9fefc19639e0299dbbf5fd0c819d4`](https://github.com/SdrgonLee/rethink/commit/97e3e7f548b9fefc19639e0299dbbf5fd0c819d4).
+It replaces the ML32PWFOTA cooking binary sensor with read-only active-program and target-temperature
+sensors, keeps status and remaining time, and adds a latched total-time sensor. Total time is captured
+only at an observed cooking or cleaning start, survives pause and resume, and clears after completion
+or cancellation; reconnect snapshots and preheating defaults are not mistaken for a cycle total.
+The decoder uses only `40 EC` and `40 EB` as authoritative state, clears stale setting/completion
+values, and maps the captured oven, microwave, steam-oven, steam-clean, and cavity-dry contexts.
+Externally documented program and cleaning names are included behind the same strict context checks.
+The capture recorder now preserves ML32 raw frames with split previous/current records and offset
+summaries while leaving `40 BF` and `40 72` uninterpreted.
+
 Version `0.1.28` pins Rethink revision
 [`944ab5e17e4c2f3a17003c45a8c99032eb339a16`](https://github.com/SdrgonLee/rethink/commit/944ab5e17e4c2f3a17003c45a8c99032eb339a16).
 It adds read-only Home Assistant support for the Korean LG ML32PWFOTA lightwave oven. Rethink decodes
@@ -141,5 +153,5 @@ revision with a floating branch or tag. The App repository is
 [SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).
 
 The App is distributed as the versioned multi-architecture image
-`ghcr.io/sdrgonlee/rethink-ha-addon:0.1.28`. Home Assistant selects its native `amd64` or `arm64`
+`ghcr.io/sdrgonlee/rethink-ha-addon:0.1.29`. Home Assistant selects its native `amd64` or `arm64`
 manifest automatically. It does not use a floating `latest` tag.
