@@ -83,6 +83,14 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
+Version `0.1.28` pins Rethink revision
+[`944ab5e17e4c2f3a17003c45a8c99032eb339a16`](https://github.com/SdrgonLee/rethink/commit/944ab5e17e4c2f3a17003c45a8c99032eb339a16).
+It adds read-only Home Assistant support for the Korean LG ML32PWFOTA lightwave oven. Rethink decodes
+the reconnect and dual-block state frames, always uses the latter current block, and reports status,
+remaining time, and whether cooking is active. The captured completion event also closes cycles whose
+cooking mode does not emit a state update. Undecoded settings, remote control, door, temperature, and
+energy data are not exposed.
+
 Version `0.1.27` pins Rethink revision
 [`4c074bd151acb84f7ad00fc4f698d2f7d2f5026b`](https://github.com/SdrgonLee/rethink/commit/4c074bd151acb84f7ad00fc4f698d2f7d2f5026b).
 For LG FX25 (`FX___N`) devices, it adds a `Start washer` (`세탁 시작`) button that reproduces the
@@ -133,5 +141,5 @@ revision with a floating branch or tag. The App repository is
 [SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).
 
 The App is distributed as the versioned multi-architecture image
-`ghcr.io/sdrgonlee/rethink-ha-addon:0.1.27`. Home Assistant selects its native `amd64` or `arm64`
+`ghcr.io/sdrgonlee/rethink-ha-addon:0.1.28`. Home Assistant selects its native `amd64` or `arm64`
 manifest automatically. It does not use a floating `latest` tag.
