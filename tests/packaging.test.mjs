@@ -164,10 +164,10 @@ test('metadata and Dockerfile retain required safety settings and pins', () => {
         assert.doesNotMatch(config, new RegExp(forbidden))
     }
     assert.match(dockerfile, /ghcr\.io\/home-assistant\/base:3\.24-2026\.08\.0/)
-    assert.match(config, /version: '0\.1\.29'/)
+    assert.match(config, /version: '0\.1\.30'/)
     assert.match(config, /^image: ghcr\.io\/sdrgonlee\/rethink-ha-addon$/m)
-    assert.match(dockerfile, /BUILD_VERSION="0\.1\.29"/)
-    assert.match(dockerfile, /RETHINK_REV="97e3e7f548b9fefc19639e0299dbbf5fd0c819d4"/)
+    assert.match(dockerfile, /BUILD_VERSION="0\.1\.30"/)
+    assert.match(dockerfile, /RETHINK_REV="491b1775652ca918cc7766fc866ab58814416049"/)
     assert.match(dockerfile, /RETHINK_REVISION/)
     assert.match(dockerfile, /apk add --no-cache nodejs openssl jq ca-certificates/)
     assert.match(dockerfile, /RETHINK_REPO="https:\/\/github\.com\/SdrgonLee\/rethink\.git"/)
