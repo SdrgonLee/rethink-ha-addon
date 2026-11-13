@@ -83,6 +83,11 @@ by the core because an equivalent safe workflow is not known.
 
 ## Build pin
 
+Version `0.1.31` pins Rethink revision
+[`a8dd30d4d54c50b16a53105d4599eef499c01db7`](https://github.com/SdrgonLee/rethink/commit/a8dd30d4d54c50b16a53105d4599eef499c01db7).
+It brings the upstream connection multiplexers and PKI into the fork while retaining FX25 and ML32
+support, registration protection, and the existing Add-on configuration and data paths.
+
 Version `0.1.30` pins Rethink revision
 [`491b1775652ca918cc7766fc866ab58814416049`](https://github.com/SdrgonLee/rethink/commit/491b1775652ca918cc7766fc866ab58814416049).
 For ML32PWFOTA ovens, it sends the captured read-only status query immediately when the device
@@ -160,5 +165,5 @@ revision with a floating branch or tag. The App repository is
 [SdrgonLee/rethink-ha-addon](https://github.com/SdrgonLee/rethink-ha-addon).
 
 The App is distributed as the versioned multi-architecture image
-`ghcr.io/sdrgonlee/rethink-ha-addon:0.1.30`. Home Assistant selects its native `amd64` or `arm64`
+`ghcr.io/sdrgonlee/rethink-ha-addon:0.1.31`. Home Assistant selects its native `amd64` or `arm64`
 manifest automatically. It does not use a floating `latest` tag.
